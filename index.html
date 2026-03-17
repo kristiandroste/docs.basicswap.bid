@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Documentation - BasicSwap API</title>
+
+  <!-- Mixpanel Analytics -->
+  <script type="text/javascript">
+  (function(f,b){if(!b.__SV){var e,g,i,h;window.mixpanel=b;b._i=[];b.init=function(e,f,c){function g(a,d){var b=d.split(".");2==b.length&&(a=a[b[0]],d=b[1]);a[d]=function(){a.push([d].concat(Array.prototype.slice.call(arguments,0)))}}var a=b;"undefined"!==typeof c?a=b[c]=[]:c="mixpanel";a.people=a.people||[];a.toString=function(a){var d="mixpanel";"mixpanel"!==c&&(d+="."+c);a||(d+=" (stub)");return d};a.people.toString=function(){return a.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");for(h=0;h<i.length;h++)g(a,i[h]);var j="set set_once union unset remove delete".split(" ");a.get_group=function(){function b(c){d[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));a.push([e,call2])}}for(var d={},e=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<j.length;c++)b(j[c]);return d};b._i.push([e,f,c])};b.__SV=1.2;e=f.createElement("script");e.type="text/javascript";e.async=!0;e.src="https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";g=f.getElementsByTagName("script")[0];g.parentNode.insertBefore(e,g)}})(document,window.mixpanel||[]);
+  mixpanel.init('cc33009825ebf795b4bf010b235b29ee', {track_pageview: true});
+  </script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #111827;
+      color: #e5e7eb;
+      line-height: 1.6;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 24px; }
+    header {
+      padding: 16px 24px;
+      background: #1f2937;
+      border-bottom: 1px solid #374151;
+    }
+    .logo { color: #3b82f6; font-size: 20px; font-weight: 600; text-decoration: none; }
+    h1 { color: #f9fafb; font-size: 32px; margin: 32px 0 16px; }
+    h2 { color: #f9fafb; font-size: 24px; margin: 32px 0 16px; border-bottom: 1px solid #374151; padding-bottom: 8px; }
+    h3 { color: #f9fafb; font-size: 18px; margin: 24px 0 12px; }
+    p { margin-bottom: 16px; color: #d1d5db; }
+    code {
+      background: #374151;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 14px;
+    }
+    pre {
+      background: #1f2937;
+      border: 1px solid #374151;
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+    pre code { background: none; padding: 0; }
+    .endpoint {
+      background: #1f2937;
+      border: 1px solid #374151;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 16px 0;
+    }
+    .endpoint-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .method {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .method-get { background: #10b981; color: white; }
+    .method-post { background: #3b82f6; color: white; }
+    .method-delete { background: #ef4444; color: white; }
+    .path { font-family: monospace; font-size: 16px; color: #f9fafb; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    th, td { text-align: left; padding: 12px; border-bottom: 1px solid #374151; }
+    th { color: #9ca3af; font-size: 12px; text-transform: uppercase; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+    .badge-required { background: #ef4444; color: white; }
+    .badge-optional { background: #374151; color: #9ca3af; }
+    a { color: #3b82f6; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .nav { margin: 24px 0; padding: 16px; background: #1f2937; border-radius: 8px; }
+    .nav ul { list-style: none; }
+    .nav li { margin: 8px 0; }
+    .callout { padding: 16px; border-radius: 8px; margin: 16px 0; }
+    .callout-info { background: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; }
+    .callout-warning { background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; }
+    .status-banner {
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+      border-bottom: 2px solid #991b1b;
+      padding: 12px 24px;
+      text-align: center;
+      color: #fecaca;
+      font-size: 14px;
+    }
+    .status-banner strong {
+      color: #ffffff;
+      margin-right: 8px;
+    }
+    @media (max-width: 768px) {
+      header {
+        padding: 12px 16px;
+      }
+      .container {
+        padding: 16px;
+      }
+      h1 {
+        font-size: 24px;
+        margin: 24px 0 12px;
+      }
+      h2 {
+        font-size: 20px;
+        margin: 24px 0 12px;
+      }
+      .endpoint {
+        padding: 14px;
+      }
+      .endpoint-header {
+        flex-wrap: wrap;
+      }
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+      th, td {
+        padding: 8px 6px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo">BasicSwap API</a>
+  </header>
+
+  <div class="status-banner">
+    <strong>Service Temporarily Offline</strong>
+    API is currently disabled for development. Docs remain for reference.
+  </div>
+
+  <div class="container">
+    <h1>API Documentation</h1>
+    <p>Access live BasicSwap DEX orderbook data through our REST API.</p>
+
+    <div class="nav">
+      <strong>Contents</strong>
+      <ul>
+        <li><a href="#getting-started">Getting Started</a></li>
+        <li><a href="#authentication">Authentication</a></li>
+        <li><a href="#rate-limits">Rate Limits</a></li>
+        <li><a href="#endpoints">API Endpoints</a></li>
+        <li><a href="#errors">Error Handling</a></li>
+      </ul>
+    </div>
+
+    <h2 id="getting-started">Getting Started</h2>
+    <ol style="padding-left: 20px; color: #d1d5db;">
+      <li>Create an account at <a href="https://account.basicswap.bid">account.basicswap.bid</a></li>
+      <li>Generate an API key from your dashboard</li>
+      <li>Include the key in your requests using the <code>X-API-Key</code> header</li>
+    </ol>
+
+    <h3>Quick Example</h3>
+    <pre><code>curl -H "X-API-Key: bsw_live_your_key_here" \
+  https://api.basicswap.bid/v1/orderbook</code></pre>
+
+    <h2 id="authentication">Authentication</h2>
+    <p>All API requests require authentication via an API key. Include your key in the <code>X-API-Key</code> header:</p>
+    <pre><code>X-API-Key: bsw_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code></pre>
+
+    <div class="callout callout-warning">
+      <strong>Keep your API key secret!</strong> Never expose it in client-side code or public repositories.
+    </div>
+
+    <h2 id="rate-limits">Rate Limits</h2>
+    <table>
+      <tr>
+        <th>Tier</th>
+        <th>Limit</th>
+        <th>Price</th>
+      </tr>
+      <tr>
+        <td>Free</td>
+        <td>5 requests/minute</td>
+        <td>$0</td>
+      </tr>
+      <tr>
+        <td>Paid (usage-based)</td>
+        <td>Unlimited</td>
+        <td>$0.001 per request after free tier</td>
+      </tr>
+    </table>
+
+    <p>Rate limit headers are included in all responses:</p>
+    <pre><code>X-RateLimit-Limit: 5
+X-RateLimit-Remaining: 4
+X-RateLimit-Reset: 2025-01-31T12:35:00Z</code></pre>
+
+    <h2 id="endpoints">API Endpoints</h2>
+
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="path">/v1/status</span>
+      </div>
+      <p>Get data freshness status. Useful for checking if the orderbook data is current.</p>
+      <h4>Response</h4>
+      <pre><code>{
+  "status": "fresh",
+  "lastSyncAt": "2025-01-31T12:34:56Z",
+  "ageSeconds": 12,
+  "offerCount": 47
+}</code></pre>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="path">/v1/orderbook</span>
+      </div>
+      <p>Get the full orderbook snapshot with all active offers.</p>
+      <h4>Response</h4>
+      <pre><code>{
+  "data": [
+    {
+      "offerId": "abc123...",
+      "coinFrom": "Bitcoin",
+      "coinTo": "Monero",
+      "amountFrom": "0.5",
+      "amountTo": "85.5",
+      "rate": "171.0",
+      "minSwap": "0.01",
+      "createdAt": 1706700000000,
+      "expiresAt": 1706786400000
+    }
+  ],
+  "meta": {
+    "lastSyncAt": "2025-01-31T12:34:56Z",
+    "offerCount": 47,
+    "dataAgeSeconds": 12
+  }
+}</code></pre>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="path">/v1/orderbook/:pair</span>
+      </div>
+      <p>Get offers for a specific trading pair.</p>
+      <h4>Parameters</h4>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td><code>pair</code></td>
+          <td>string</td>
+          <td>Trading pair in format <code>coin1-coin2</code> using full coin names (e.g., <code>bitcoin-monero</code>)</td>
+        </tr>
+      </table>
+      <h4>Example</h4>
+      <pre><code>GET /v1/orderbook/bitcoin-monero</code></pre>
+      <p style="margin-top: 8px; color: #9ca3af; font-size: 14px;">Available coins: Bitcoin, Monero, Litecoin, Particl, Particl Blind, Particl Anon, Bitcoin Cash. Use the <code>/v1/pairs</code> endpoint to get the current list.</p>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="path">/v1/pairs</span>
+      </div>
+      <p>Get all available trading pairs with statistics.</p>
+      <h4>Response</h4>
+      <pre><code>{
+  "data": [
+    {
+      "pair": "BITCOIN-MONERO",
+      "coinFrom": "BITCOIN",
+      "coinTo": "MONERO",
+      "offerCount": 12,
+      "avgRate": 171.5,
+      "minRate": 168.0,
+      "maxRate": 175.0,
+      "totalVolume": 2.5
+    }
+  ],
+  "meta": { ... }
+}</code></pre>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-header">
+        <span class="method method-get">GET</span>
+        <span class="path">/v1/stats</span>
+      </div>
+      <p>Get aggregate orderbook statistics.</p>
+      <h4>Response</h4>
+      <pre><code>{
+  "data": {
+    "totalOffers": 47,
+    "totalPairs": 8,
+    "totalVolume": 15.5,
+    "uniqueCoins": ["Bitcoin", "Monero", "Litecoin", "Particl", "Bitcoin Cash"],
+    "coinCount": 5
+  },
+  "meta": { ... }
+}</code></pre>
+    </div>
+
+    <h2 id="errors">Error Handling</h2>
+    <p>Errors are returned with appropriate HTTP status codes:</p>
+    <table>
+      <tr>
+        <th>Code</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>400</td>
+        <td>Bad Request - Invalid parameters</td>
+      </tr>
+      <tr>
+        <td>401</td>
+        <td>Unauthorized - Missing or invalid API key</td>
+      </tr>
+      <tr>
+        <td>429</td>
+        <td>Too Many Requests - Rate limit exceeded</td>
+      </tr>
+      <tr>
+        <td>500</td>
+        <td>Internal Server Error</td>
+      </tr>
+    </table>
+
+    <h3>Error Response Format</h3>
+    <pre><code>{
+  "error": "Rate limit exceeded",
+  "limit": "5 requests per minute",
+  "retryAfter": 45,
+  "resetAt": "2025-01-31T12:35:00Z",
+  "upgradeHint": "Upgrade to a paid plan for higher limits"
+}</code></pre>
+
+    <h2>Support</h2>
+    <p>For questions or issues, please visit <a href="https://github.com/basicswap/basicswap">BasicSwap GitHub</a>.</p>
+  </div>
+</body>
+</html>
